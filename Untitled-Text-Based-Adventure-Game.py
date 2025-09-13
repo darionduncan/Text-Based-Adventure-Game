@@ -1,6 +1,6 @@
-from time import sleep
 import time
 import sys
+from time import sleep
 
 def typewriter(text, delay=0.05):
     for char in text:
@@ -18,15 +18,17 @@ sleep(0.5)
 while load <= 99:
     load = load+ 25
     print("Loading - ", load, "%")
-    sleep(0.3)
+    sleep(0.2)
 print("Loading - Complete!")
 sleep(0.3)
 
 #Introduction to Game Demo
-
 gamename = "Untitled Text Based Adventure Game"
 print("Hello, and welcome to the ", gamename,"!")
 sleep(0.5)
+
+#Entering username and desired story location
+
 while True:
     username = input("Enter your desired username: ")
     if len(username) <= 25:
@@ -38,10 +40,21 @@ while True:
 sleep(1)
 print("Hello, ",username,", welcome to the ", gamename,"!")
 sleep(0.5)
+
+#Location does not alter storyline.
+
+location = input("Enter the location you wish for the game to be set in. Please enter a city name: ")
+sleep(1)
+print("Your chosen location is ", location)
+sleep(0.5)
+
+#Intro to game demo pt2
+
 print("Before we begin, please note that this is only a demo. This is not the full game")
 sleep(0.5)
 
 #Storyline begins
+
 print("""╔──────────────────────────────────────────────────────────────────────────────╗
 │ _____ _            _   _       _   _ _   _          _                        │
 │|_   _| |__   ___  | | | |_ __ | |_(_) |_| | ___  __| |                       │
@@ -58,6 +71,8 @@ print("""╔──────────────────────�
 │/_/   \_\__,_| \_/ \___|_| |_|\__|\__,_|_|  \___|  \____|\__,_|_| |_| |_|\___|│
 ╚──────────────────────────────────────────────────────────────────────────────╝""")
 typewriter("You arrive home from that dreadful 9 - 5, feeling, exhausted..... drained")
+
+#deciding whether to eat or not - does not affect storyline
 typewriter("You make your way to the kitchen, and open the fridge")
 typewriter("In the fridge you find a slice of pizza")
 answerone = input("Would you like to eat the pizza? (yes/no): ")
@@ -108,7 +123,7 @@ print("""%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 *                                                                                                   
 *                                                                                                   
 *                                                                                                   """)
-
+#Choosing a tv channel - Does not affect storyline
 while True:
     answertwo = input("What channel do you want to watch? E4 or ITV? ")
     if answertwo == "E4":
@@ -119,3 +134,18 @@ while True:
         break
     else:
         print("Invalid option, please try again")
+
+typewriter("*TV Plays* - *Screen Suddenly goes blank*")
+print(""" ____  ____  _____    _    _  _____ _   _  ____ 
+| __ )|  _ \| ____|  / \  | |/ /_ _| \ | |/ ___|
+|  _ \| |_) |  _|   / _ \ | ' / | ||  \| | |  _ 
+| |_) |  _ <| |___ / ___ \| . \ | || |\  | |_| |
+|____/|_|_\_\_____/_/ __\_\_|\_\___|_| \_|\____|
+| \ | | ____\ \      / / ___|                   
+|  \| |  _|  \ \ /\ / /\___ \                   
+| |\  | |___  \ V  V /  ___) |                  
+|_| \_|_____|  \_/\_/  |____/                   """)
+typewriter("*On TV* We interrupt this program for some breaking news. An ARMED robbery has been"
+           "committed in a town located in:")
+print(location)
+
