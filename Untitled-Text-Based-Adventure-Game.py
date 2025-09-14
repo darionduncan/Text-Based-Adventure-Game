@@ -146,4 +146,19 @@ if answertwo == "E4":
 else:
     typewriter("*TV Plays* Family Guy")
 
+typewriter("You sit and watch TV for a few hours.... Falling asleep on the couch")
+typewriter("You wake up suddenly..... To the sound of a loud banging.")
+typewriter("It seems to be coming from the front door?")
 
+while True:
+    answerthree = input("Do you walk to the door to check it out? yes / no? ")
+    if answerthree == "yes":
+        typewriter("You walk to the door. And you peek through the peephole. You see..... ARMED police?!")
+        break
+    elif answerthree == "no":
+        typewriter("You stay put.")
+        break
+    else:
+        print("Invalid option, please try again")
+
+typewriter("*Thinking to yourself* Maybe its best I dont open the door. Whoever is out there seems really aggressive.")
