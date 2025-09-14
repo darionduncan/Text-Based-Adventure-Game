@@ -75,11 +75,17 @@ typewriter("You arrive home from that dreadful 9 - 5, feeling, exhausted..... dr
 #deciding whether to eat or not - does not affect storyline
 typewriter("You make your way to the kitchen, and open the fridge")
 typewriter("In the fridge you find a slice of pizza")
-answerone = input("Would you like to eat the pizza? (yes/no): ")
-if answerone == "yes":
-    print("You ate the pizza")
-else:
-    print("You did not eat the pizza")
+while True:
+    answerone = input("Would you like to eat the pizza? (yes/no): ")
+    if answerone == "yes":
+        print("You ate the pizza")
+        break
+    elif answerone == "no":
+        print("You did not eat the pizza")
+        break
+    else:
+        print("Invalid option. Please enter yes or no.")
+
 typewriter("You walk over to the couch and switch on the TV.")
 print("""%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 *                                        +:                 ==                                      
@@ -135,17 +141,9 @@ while True:
     else:
         print("Invalid option, please try again")
 
-typewriter("*TV Plays* - *Screen Suddenly goes blank*")
-print(""" ____  ____  _____    _    _  _____ _   _  ____ 
-| __ )|  _ \| ____|  / \  | |/ /_ _| \ | |/ ___|
-|  _ \| |_) |  _|   / _ \ | ' / | ||  \| | |  _ 
-| |_) |  _ <| |___ / ___ \| . \ | || |\  | |_| |
-|____/|_|_\_\_____/_/ __\_\_|\_\___|_| \_|\____|
-| \ | | ____\ \      / / ___|                   
-|  \| |  _|  \ \ /\ / /\___ \                   
-| |\  | |___  \ V  V /  ___) |                  
-|_| \_|_____|  \_/\_/  |____/                   """)
-typewriter("*On TV* We interrupt this program for some breaking news. An ARMED robbery has been"
-           "committed in a town located in:")
-print(location)
+if answertwo == "E4":
+    typewriter("*TV Plays* The Simpsons")
+else:
+    typewriter("*TV Plays* Family Guy")
+
 
