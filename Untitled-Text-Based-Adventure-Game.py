@@ -162,7 +162,11 @@ while True:
         print("Invalid option, please try again")
 
 typewriter("*Thinking to yourself* Maybe its best I dont open the door. Whoever is out there seems really aggressive.")
+typewriter("You decide to walk upstairs and amke your way to bed.")
+typewriter("It goes quiet")
+typewriter("Suddenly...")
+print("BANG!!!")
+typewriter("You hear running up the stairs")
+typewriter("You hear a shout - 'ARMED POLICE!!! YOU ARE BEING ARRESTED ON SUSPICION OF MURDER BY FIREARM'")
 
-if answerthree == "yes":
-    typewriter("You walk back to the couch")
 
