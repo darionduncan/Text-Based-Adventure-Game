@@ -203,7 +203,7 @@ while True:
         print("Invalid option, please try again")
 
 typewriter("*Thinking to yourself* Maybe its best I dont open the door. Whoever is out there seems really aggressive."
-           "\nYou decide to walk upstairs and amke your way to bed."
+           "\nYou decide to walk upstairs and make your way to bed."
            "\nIt goes quiet"
            "\nSuddenly...")
 print("BANG!!!")
