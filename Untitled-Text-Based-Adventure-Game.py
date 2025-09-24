@@ -208,6 +208,17 @@ typewriter("*Thinking to yourself* Maybe its best I dont open the door. Whoever 
            "\nSuddenly...")
 print("BANG!!!")
 typewriter("You hear running up the stairs"
-           "\nYou hear a shout - 'ARMED POLICE!!! YOU ARE BEING ARRESTED ON SUSPICION OF MURDER BY FIREARM'")
+           "\nYou hear a shout - 'ARMED POLICE!!! YOU ARE BEING ARRESTED ON SUSPICION OF MURDER BY FIREARM'"
+           "\nYou look up and see 3 Officers holding you at gunpoint.")
 
-
+while True:
+    jailtime = 0
+    answerfour = input("Do you want to resist? yes/no? ")
+    if answerfour == "yes":
+        jailtime = 67
+        break
+    elif answerfour == "no":
+        jailtime = 30
+        break
+    else:
+        print("Invalid option, please try again")
