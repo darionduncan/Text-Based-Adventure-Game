@@ -88,6 +88,11 @@ typewriter("You arrive home from that dreadful 9 - 5, feeling, exhausted..... dr
 
 # deciding whether to eat or not - does not affect storyline
 typewriter("You make your way to the kitchen, and open the fridge"
+           "\n You see some beers on the top shelf....."
+           "\n You drink one."
+           "\n You drink another....."
+           "\n Next thing you know you have drank 5 beers..... "
+           "\n Now your drunk"
            "\nIn the fridge you find a slice of pizza")
 answerone = get_choice("Would you like to eat the pizza? (yes/no): ", ["yes", "no"])
 
@@ -95,6 +100,8 @@ if answerone == "yes":
     print("You ate the pizza")
 elif answerone == "no":
     print("You did not eat the pizza")
+
+
 
 typewriter("You walk over to the couch and switch on the TV.")
 print(r"""                                                                                                    
