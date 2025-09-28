@@ -177,16 +177,26 @@ print(r"""
 
 
                                                                                                     """)
-# Choosing a tv channel - Does not affect storyline
-# answertwo = get_choice("What channel do you want to watch? E4 or ITV?", ["E4", "ITV"])
-# if answertwo == "E4":
-#     typewriter("*TV Plays* The Simpsons")
-# else:
-#     typewriter("*TV Plays* Family Guy")
+while True:
+    answertwo = input("What channel do you want to watch? E4 or ITV? ")
+    if answertwo == "E4":
+        print("You put on E4")
+        break
+    elif answertwo == "ITV":
+        print("You put on ITV")
+        break
+    else:
+        print("Invalid option, please try again")
+
+if answertwo == "E4":
+    typewriter("*TV Plays* The Simpsons")
+else:
+    typewriter("*TV Plays* Family Guy")
 
 typewriter("You sit and watch TV for a few hours.... Falling asleep on the couch"
            "\nYou wake up suddenly..... To the sound of a loud banging."
            "\nIt seems to be coming from the front door?")
+
 answerthree = get_choice("Do you walk to the door to check it out? (yes/no): ", ["yes", "no"])
 if answerthree == "yes":
     typewriter("You walk to the door. And you peek through the peephole. You see..... ARMED police?!")
@@ -228,4 +238,5 @@ if answerfive == "yes":
     typewriter("You made the right - yet morally and legally questionable - decision."
                "\n Lets get you ready to escape")
 elif answerfive == "no":
-    sys.exit("Well I guess that's the end of this game then")
+    typewriter("Well that's the end of the game then")
+    sys.exit("Game Over")
