@@ -1,11 +1,24 @@
 
-# importing
+#importing
+import random
 import time
 import sys
 from time import sleep
 
+#playerstats
+player = {
+    "stamina": 50,
+    "maxstamina": 50,
+    "xp": 0,
+    "level": 1,
+    "shovel": 1,
+    "items": [],
+    "toiletpaper": 0,
+    "xpmultiplier": 1
+}
 
-# defining functions
+
+#defining functions
 def typewriter(text, delay=0.05):
     for char in text:
         sys.stdout.write(char)
@@ -20,6 +33,15 @@ def get_choice(prompt, valid_choices):
         if choice in valid_choices:
             return choice
         print(f"Invalid option, please enter one of: {', '.join(valid_choices)}")
+
+def dig():
+    if player["stamina"] < 5:
+        print("You are too tired to dig. Try eating or sleeping to refill stamina.")
+        return
+    player["stamina"] -= 5
+    xpgained = 10 * player["xpmultiplier"]
+    player["xp"] += xpgained
+    print(f"You dig... (-5 stamina). Stamina: {player['stamina']} XP gained: {xpgained}")
 
 
 # loadingscreen
@@ -92,7 +114,7 @@ typewriter("You make your way to the kitchen, and open the fridge"
            "\n You see some beers on the top shelf....."
            "\n You drink one."
            "\n You drink another....."
-           "\n Next thing you know you have drank 5 beers..... "
+           "\n Next thing you know you have drank 6 or 7 beers..... "
            "\n Now your drunk."
            "\n You decide to go for a drive."
            "\n Personally I think that isn't a good idea but I am just the narrator so..."
@@ -177,8 +199,9 @@ print(r"""
 
 
                                                                                                     """)
+
 while True:
-    answertwo = input("What channel do you want to watch? E4 or ITV? ")
+    answertwo = input("What channel would you like to watch? E4 or ITV?")
     if answertwo == "E4":
         print("You put on E4")
         break
@@ -213,17 +236,14 @@ typewriter("You hear running up the stairs"
            "\nYou hear a shout - 'ARMED POLICE!!! YOU ARE BEING ARRESTED ON SUSPICION OF MURDER BY FIREARM'"
            "\nYou look up and see 3 Officers holding you at gunpoint.")
 
-while True:
-    jailtime = 0
-    answerfour = input("Do you want to resist? yes/no? ")
-    if answerfour == "yes":
-        jailtime = 67
-        break
-    elif answerfour == "no":
-        jailtime = 30
-        break
-    else:
-        print("Invalid option, please try again")
+jailtime = 0
+answerfour = get_choice("Do you want to resist? yes /no: ",     ["yes", "no"])
+if answerfour == "yes":
+    jailtime = 67
+elif answerfour == "no":
+    jailtime = 30
+else:
+    print("Invalid option, please try again")
 
 typewriter("A few days later..."
            "\n A bunch of stuff happens and as the narrator I will not go into too much detail because I am not paid enough."
