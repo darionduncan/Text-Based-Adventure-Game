@@ -40,12 +40,12 @@ def dig():
     player["stamina"] -= 5
     xpgained = 10 * player["xpmultiplier"]
     player["xp"] += xpgained
-    player["depth"] += 0.1
+    player["depth"] += 0.5
     print(f"You dig... (-5 stamina). Stamina: {player['stamina']}. XP gained: {xpgained}. Depth (m): {player['depth']}.")
 
     itemsfound = 0
     for _ in range(player["shovel"]):  # Number of item rolls = shovel level
-        if random.randint(1, 3) == 1:
+        if random.randint(1, 2) == 1:
             found_item = random.choice(["watch", "jewellery", "soap", "radio"])
             player["items"].append(found_item)
             itemsfound += 1
@@ -186,8 +186,6 @@ if answerone == "yes":
     print("You ate the pizza")
 elif answerone == "no":
     print("You did not eat the pizza")
-
-
 
 typewriter("You walk over to the couch and switch on the TV.")
 print(r"""
