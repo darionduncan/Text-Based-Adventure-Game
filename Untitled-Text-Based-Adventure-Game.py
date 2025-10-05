@@ -14,9 +14,9 @@ player = {
     "shovel": 1,
     "items": [],
     "toiletpaper": 0,
-    "xpmultiplier": 1
+    "xpmultiplier": 1,
+    "depth": 0
 }
-
 
 #defining functions
 def typewriter(text, delay=0.05):
@@ -25,7 +25,6 @@ def typewriter(text, delay=0.05):
         sys.stdout.flush()
         time.sleep(delay)
     print()
-
 
 def get_choice(prompt, valid_choices):
     while True:
@@ -41,8 +40,55 @@ def dig():
     player["stamina"] -= 5
     xpgained = 10 * player["xpmultiplier"]
     player["xp"] += xpgained
-    print(f"You dig... (-5 stamina). Stamina: {player['stamina']} XP gained: {xpgained}")
+    player["depth"] += 0.1
+    print(f"You dig... (-5 stamina). Stamina: {player['stamina']}. XP gained: {xpgained}. Depth (m): {player['depth']}.")
 
+    itemsfound = 0
+    for _ in range(player["shovel"]):  # Number of item rolls = shovel level
+        if random.randint(1, 3) == 1:
+            found_item = random.choice(["watch", "jewellery", "soap", "radio"])
+            player["items"].append(found_item)
+            itemsfound += 1
+    if itemsfound:
+        print(f"You found {itemsfound} item(s): {player['items'][-itemsfound:]}")
+    else:
+        print("You didn't find any items.")
+
+def rest():
+    player["stamina"] = player["maxstamina"]
+    print("You slept. Stamina fully restored.")
+
+def eat():
+    player["stamina"] = min(player["stamina"] + 20, player["maxstamina"])
+    print(f"You ate. Stamina now: {player['stamina']}/{player['maxstamina']}")
+
+def playerstats(player):
+    print("Player Stats:")
+    for key, value in player.items():
+        print(f"  {key.capitalize()}: {value}")
+
+
+def gameoptions():
+    while True:
+        answersix = input("What would you like to do next? dig, eat, sleep, view player stats or quit the game? ")
+        if answersix == "dig":
+            dig()
+        elif answersix == "eat":
+            eat()
+        elif answersix == "sleep":
+            rest()
+        elif answersix == "quit":
+            print("Exiting game.")
+            sys.exit()
+        elif answersix == "view player stats":
+            playerstats(player)
+        else:
+            print("Invalid option, please try again")
+
+        # Depth check after action
+        if player["depth"] >= 10:
+            print("You have reached a depth of 10 meters.")
+            break
 
 # loadingscreen
 print("Initializing...")
@@ -65,7 +111,7 @@ sleep(0.5)
 # Entering username and desired story location
 
 while True:
-    username = input("Enter your desired username: ")
+    username = input("Enter your desired username or hit enter if you do not with to use a username: ")
     if len(username) <= 25:
         print("Username accepted")
         break
@@ -73,7 +119,7 @@ while True:
         print("Username too long, please enter a username that is 25 character or less.")
 
 sleep(1)
-print(f"Hello,{username} welcome to the {gamename}!")
+print(f"Hello, {username} welcome to the {gamename}!")
 sleep(0.5)
 
 # Location does not alter storyline.
@@ -253,6 +299,7 @@ typewriter("A few days later..."
            "\n So now.... You are in prison. How fun!"
            "\n Oh... and by the way. You were framed. You didnt actually kill anybody."
            "\n So now it comes down to only one thing. ESCAPING!!")
+
 answerfive = get_choice("Do you want to? yes or no?", ["yes", "no"])
 if answerfive == "yes":
     typewriter("You made the right - yet morally and legally questionable - decision."
@@ -260,3 +307,26 @@ if answerfive == "yes":
 elif answerfive == "no":
     typewriter("Well that's the end of the game then")
     sys.exit("Game Over")
+
+typewriter("Alright so you goal is to reach to 10 meters deep under your cell..."
+           "\n After this you must head north to the nearest sewer..."
+           "\n You then need to walk through the sewer until you reach the next manhole cover..."
+           "\n After that all you need to do is make it back home from there..."
+           "\n Well... Not exactly your home"
+           "\n That would be a dumb idea..."
+           "\n To escape from prison and to go back to the first place where the police would search"
+           "\n Anyways lets continue with the storyline."
+           "\n Okay. Lets start by breaking the tiles below this rug (why is there a rug in prison? idk gng js go with it fr)")
+
+print("*You break the tiles*")
+
+typewriter("Okay now grab the shovel under the bed (the prison guards are a bit dumb dw trust they wont see it")
+
+print("*You grab the shovel*")
+
+typewriter("Okay lets get digging.")
+dig()
+gameoptions()
+
+
+
