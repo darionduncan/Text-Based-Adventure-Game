@@ -21,6 +21,7 @@ player = {
 
 #defining functions
 def clear_terminal():
+    sleep(2)
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def typewriter(text, delay=0.05):
