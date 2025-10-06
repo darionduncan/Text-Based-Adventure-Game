@@ -21,14 +21,6 @@ player = {
 
 #defining functions
 def clear_terminal():
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-    sleep(2)
->>>>>>> Stashed changes
-=======
-    sleep(2)
->>>>>>> Stashed changes
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def typewriter(text, delay=0.05):
@@ -116,14 +108,6 @@ while load <= 99:
 print("Loading - Complete!")
 sleep(0.3)
 clear_terminal()
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
-=======
-
->>>>>>> Stashed changes
 
 # Introduction to Game Demo
 gamename = "Untitled Text Based Adventure Game"
@@ -348,12 +332,4 @@ print("*You grab the shovel*")
 
 typewriter("Okay lets get digging.")
 dig()
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 gameoptions()
-=======
-gameoptions()
->>>>>>> Stashed changes
-=======
-gameoptions()
->>>>>>> Stashed changes
