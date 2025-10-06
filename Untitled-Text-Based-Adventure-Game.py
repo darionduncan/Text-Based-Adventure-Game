@@ -4,21 +4,25 @@ import random
 import time
 import sys
 from time import sleep
+import os
 
 #playerstats
 player = {
-    "stamina": 50,
-    "maxstamina": 50,
-    "xp": 0,
-    "level": 1,
-    "shovel": 1,
-    "items": [],
-    "toiletpaper": 0,
-    "xpmultiplier": 1,
-    "depth": 0
+    "Stamina": 50,
+    "Max Stamina": 50,
+    "XP": 0,
+    "Level": 1,
+    "Shovel": 1,
+    "Items": [],
+    "Toilet Paper": 0,
+    "XP Multiplier": 1,
+    "Depth (m)": 0
 }
 
 #defining functions
+def clear_terminal():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
 def typewriter(text, delay=0.05):
     for char in text:
         sys.stdout.write(char)
@@ -34,33 +38,33 @@ def get_choice(prompt, valid_choices):
         print(f"Invalid option, please enter one of: {', '.join(valid_choices)}")
 
 def dig():
-    if player["stamina"] < 5:
+    if player["Stamina"] < 5:
         print("You are too tired to dig. Try eating or sleeping to refill stamina.")
         return
-    player["stamina"] -= 5
-    xpgained = 10 * player["xpmultiplier"]
-    player["xp"] += xpgained
-    player["depth"] += 0.5
-    print(f"You dig... (-5 stamina). Stamina: {player['stamina']}. XP gained: {xpgained}. Depth (m): {player['depth']}.")
+    player["Stamina"] -= 5
+    xpgained = 10 * player["XP Multiplier"]
+    player["XP"] += xpgained
+    player["Depth (m)"] += 0.5
+    print(f"You dig... (-5 stamina). Stamina: {player['Stamina']}. XP gained: {xpgained}. Depth (m): {player['Depth (m)']}.")
 
     itemsfound = 0
-    for _ in range(player["shovel"]):  # Number of item rolls = shovel level
+    for _ in range(player["Shovel"]):  # Number of item rolls = shovel level
         if random.randint(1, 2) == 1:
             found_item = random.choice(["watch", "jewellery", "soap", "radio"])
-            player["items"].append(found_item)
+            player["Items"].append(found_item)
             itemsfound += 1
     if itemsfound:
-        print(f"You found {itemsfound} item(s): {player['items'][-itemsfound:]}")
+        print(f"You found {itemsfound} item(s): {player['Items'][-itemsfound:]}")
     else:
         print("You didn't find any items.")
 
 def rest():
-    player["stamina"] = player["maxstamina"]
+    player["Stamina"] = player["Max Stamina"]
     print("You slept. Stamina fully restored.")
 
 def eat():
-    player["stamina"] = min(player["stamina"] + 20, player["maxstamina"])
-    print(f"You ate. Stamina now: {player['stamina']}/{player['maxstamina']}")
+    player["Stamina"] = min(player["Stamina"] + 20, player["Max Stamina"])
+    print(f"You ate. Stamina now: {player['Stamina']}/{player['Max Stamina']}")
 
 def playerstats(player):
     print("Player Stats:")
@@ -86,9 +90,10 @@ def gameoptions():
             print("Invalid option, please try again")
 
         # Depth check after action
-        if player["depth"] >= 10:
+        if player["Depth (m)"] >= 10:
             print("You have reached a depth of 10 meters.")
             break
+        clear_terminal()
 
 # loadingscreen
 print("Initializing...")
@@ -102,6 +107,7 @@ while load <= 99:
     sleep(0.2)
 print("Loading - Complete!")
 sleep(0.3)
+clear_terminal()
 
 # Introduction to Game Demo
 gamename = "Untitled Text Based Adventure Game"
@@ -135,7 +141,7 @@ sleep(0.5)
 
 print("Before we begin, please note that this is only a demo. This is not the full game")
 sleep(0.5)
-
+clear_terminal()
 # Storyline begins
 
 print(r"""╔──────────────────────────────────────────────────────────────────────────────╗
@@ -186,6 +192,7 @@ if answerone == "yes":
     print("You ate the pizza")
 elif answerone == "no":
     print("You did not eat the pizza")
+clear_terminal()
 
 typewriter("You walk over to the couch and switch on the TV.")
 print(r"""
@@ -263,7 +270,7 @@ else:
 typewriter("You sit and watch TV for a few hours.... Falling asleep on the couch"
            "\nYou wake up suddenly..... To the sound of a loud banging."
            "\nIt seems to be coming from the front door?")
-
+clear_terminal()
 answerthree = get_choice("Do you walk to the door to check it out? (yes/no): ", ["yes", "no"])
 if answerthree == "yes":
     typewriter("You walk to the door. And you peek through the peephole. You see..... ARMED police?!")
@@ -281,7 +288,7 @@ typewriter("You hear running up the stairs"
            "\nYou look up and see 3 Officers holding you at gunpoint.")
 
 jailtime = 0
-answerfour = get_choice("Do you want to resist? yes /no: ",     ["yes", "no"])
+answerfour = get_choice("Do you want to resist? yes /no: ",["yes", "no"])
 if answerfour == "yes":
     jailtime = 67
 elif answerfour == "no":
@@ -305,6 +312,7 @@ if answerfive == "yes":
 elif answerfive == "no":
     typewriter("Well that's the end of the game then")
     sys.exit("Game Over")
+clear_terminal()
 
 typewriter("Alright so you goal is to reach to 10 meters deep under your cell..."
            "\n After this you must head north to the nearest sewer..."
@@ -325,6 +333,3 @@ print("*You grab the shovel*")
 typewriter("Okay lets get digging.")
 dig()
 gameoptions()
-
-
-
