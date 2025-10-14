@@ -14,17 +14,61 @@ player = {
     "Level": 1,
     "Shovel": 1,
     "Items": [],
-    "Toilet Paper": 0,
     "XP Multiplier": 1,
-    "Depth (m)": 0
+    "Depth (m)": 0,
+    "XP Needed": 50,
+    "Inventory Limit": 5,
+    "Money(£)": 0
 }
 
+ITEM_VALUES = {
+    "watch": 20,
+    "jewellery": 50,
+    "soap": 5,
+    "radio": 30
+}
+
+def sell_items():
+    if not player["Items"]:
+        print("You have no items to sell.")
+        return
+    print("Your items:")
+    item_counts = {}
+    for item in player["Items"]:
+        item_counts[item] = item_counts.get(item, 0) + 1
+    for item, count in item_counts.items():
+        print(f"{item}: {count} (Value: £{ITEM_VALUES.get(item, 0)} each)")
+    to_sell = input("Enter the item you want to sell (or 'all' to sell everything): ").strip().lower()
+    total_earned = 0
+    if to_sell == "all":
+        for item in list(player["Items"]):
+            value = ITEM_VALUES.get(item, 0)
+            total_earned += value
+            player["Items"].remove(item)
+        player["Money(£)"] += total_earned
+        print(f"You sold all items for £{total_earned}. You now have £{player['Money(£)']}.")
+    elif to_sell in item_counts:
+        count = item_counts[to_sell]
+        value = ITEM_VALUES.get(to_sell, 0)
+        for _ in range(count):
+            player["Items"].remove(to_sell)
+            total_earned += value
+        player["Money(£)"] += total_earned
+        print(f"You sold {count} {to_sell}(s) for £{total_earned}. You now have £{player['Money(£)']}.")
+    else:
+        print("You don't have that item.")
+
+
+
 #defining functions
-def clear_terminal():
+def clear_terminal(): #clears terminal with a delay
     sleep(2)
     os.system('cls' if os.name == 'nt' else 'clear')
 
-def typewriter(text, delay=0.05):
+def clear(): # clears terminal instantly
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+def typewriter(text, delay=0.025):
     for char in text:
         sys.stdout.write(char)
         sys.stdout.flush()
@@ -45,15 +89,36 @@ def dig():
     player["Stamina"] -= 5
     xpgained = 10 * player["XP Multiplier"]
     player["XP"] += xpgained
-    player["Depth (m)"] += 0.5
+    if player["Level"] < 5:
+        while player["XP"] >= player["XP Needed"] and player["Level"] < 5:
+            player["Level"] += 1
+            player["Max Stamina"] += 10
+            player["Stamina"] = player["Max Stamina"]
+            player["Shovel"] += 1
+            player["XP Multiplier"] += 0.1
+            player["XP"] -= player["XP Needed"]
+            player["XP Needed"] += 10
+            print(f"Congratulations! You've leveled up to Level {player['Level']}!")
+            print(f"Max Stamina increased to {player['Max Stamina']}. Stamina fully restored.")
+            print(f"Shovel level increased to {player['Shovel']}. XP Multiplier is now {player['XP Multiplier']:.1f}.")
+            print(f"XP needed for next level: {player['XP Needed']}")
+    elif player["Level"] >= 5 and player["XP"] >= player["XP Needed"]:
+        print("You have reached the max level (Level 5)!")
+    dig_area = 0.5 * player["Shovel"]
+    player["Depth (m)"] += dig_area
     print(f"You dig... (-5 stamina). Stamina: {player['Stamina']}. XP gained: {xpgained}. Depth (m): {player['Depth (m)']}.")
 
     itemsfound = 0
     for _ in range(player["Shovel"]):  # Number of item rolls = shovel level
         if random.randint(1, 2) == 1:
-            found_item = random.choice(["watch", "jewellery", "soap", "radio"])
-            player["Items"].append(found_item)
-            itemsfound += 1
+            for _ in range(player["Shovel"]):  # Multiply items found by shovel level
+                if len(player["Items"]) < player["Inventory Limit"]:
+                    found_item = random.choice(["watch", "jewellery", "soap", "radio"])
+                    player["Items"].append(found_item)
+                    itemsfound += 1
+                else:
+                    print("Your inventory is full! You can't carry more items.")
+                    break
     if itemsfound:
         print(f"You found {itemsfound} item(s): {player['Items'][-itemsfound:]}")
     else:
@@ -71,11 +136,14 @@ def playerstats(player):
     print("Player Stats:")
     for key, value in player.items():
         print(f"  {key.capitalize()}: {value}")
+    
 
 
 def gameoptions():
     while True:
-        answersix = input("What would you like to do next? dig, eat, sleep, view player stats or quit the game? ")
+        answersix = input("What would you like to do next? " \
+        "\n dig, eat, sleep, 'player' to view player stats, 'sell' to sell items or 'quit' to quit the game? ")
+        clear()
         if answersix == "dig":
             dig()
         elif answersix == "eat":
@@ -85,16 +153,18 @@ def gameoptions():
         elif answersix == "quit":
             print("Exiting game.")
             sys.exit()
-        elif answersix == "view player stats":
+        elif answersix == "player":
             playerstats(player)
+        elif answersix == "sell":
+            sell_items()
         else:
             print("Invalid option, please try again")
 
-        # Depth check after action
-        if player["Depth (m)"] >= 10:
-            print("You have reached a depth of 10 meters.")
+        # Depth check 
+        if player["Depth (m)"] >= 20:
+            print("You have reached a depth of 20 meters.")
             break
-        clear_terminal()
+        
 
 # loadingscreen
 print("Initializing...")
@@ -291,7 +361,8 @@ typewriter("You hear running up the stairs"
 jailtime = 0
 answerfour = get_choice("Do you want to resist? yes /no: ",["yes", "no"])
 if answerfour == "yes":
-    jailtime = 67
+    print("STOP RESISTING!!!")
+    jailtime = 69
 elif answerfour == "no":
     jailtime = 30
 else:
@@ -302,7 +373,7 @@ typewriter("A few days later..."
            "\n To summarise: "
            "\n You woke up in a holding cell, went to court for a trial, you were found guilty."
            f"\n They gave you {jailtime} years in prison"
-           "\n So now.... You are in prison. How fun!"
+           f"\n So now.... You are in a prison located in East {location}. How fun!"
            "\n Oh... and by the way. You were framed. You didnt actually kill anybody."
            "\n So now it comes down to only one thing. ESCAPING!!")
 
@@ -315,7 +386,7 @@ elif answerfive == "no":
     sys.exit("Game Over")
 clear_terminal()
 
-typewriter("Alright so you goal is to reach to 10 meters deep under your cell..."
+typewriter("Alright so you goal is to reach to 20 meters deep under your cell..."
            "\n After this you must head north to the nearest sewer..."
            "\n You then need to walk through the sewer until you reach the next manhole cover..."
            "\n After that all you need to do is make it back home from there..."
