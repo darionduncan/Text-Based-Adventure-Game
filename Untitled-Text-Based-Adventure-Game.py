@@ -67,7 +67,17 @@ def clear_terminal(): #clears terminal with a delay
 def clear(): # clears terminal instantly
     os.system('cls' if os.name == 'nt' else 'clear')
 
+def clear_delay(): #clears terminal with a short delay
+    sleep(0.3)
+    os.system('cls' if os.name == 'nt' else 'clear')
 def typewriter(text, delay=0.04):
+    for char in text:
+        sys.stdout.write(char)
+        sys.stdout.flush()
+        time.sleep(delay)
+    print()
+
+def fast_type(text, delay=0.001):
     for char in text:
         sys.stdout.write(char)
         sys.stdout.flush()
@@ -140,7 +150,7 @@ def playerstats(player):
 
 def gameoptions():
     while True:
-        answersix = input("What would you like to do next? " \
+        answersix = input("What would you like to do next? "
         "\n dig, eat, sleep, 'player' to view player stats, 'sell' to sell items or 'quit' to quit the game? ")
         clear()
         if answersix == "dig":
@@ -167,23 +177,22 @@ def gameoptions():
 
 # loadingscreen
 print("Initializing...")
-sleep(1)
+clear_delay()
 load = 0
 print("Loading - ", load, "%")
-sleep(0.5)
+clear_delay()
 while load <= 99:
     load = load + 25
     print("Loading - ", load, "%")
-    sleep(0.2)
+    clear_delay()
 print("Loading - Complete!")
-sleep(0.3)
 clear_terminal()
 
 # Introduction to Game Demo
 gamename = "Untitled Text Based Adventure Game"
 print(f"Hello, and welcome to the {gamename}!")
 sleep(0.5)
-
+clear_terminal()
 # Entering username and desired story location
 
 while True:
@@ -193,17 +202,16 @@ while True:
         break
     else:
         print("Username too long, please enter a username that is 25 character or less.")
-
-sleep(1)
+clear_terminal()
 print(f"Hello, {username} welcome to the {gamename}!")
-sleep(0.5)
+clear_terminal()
 
 # Location does not alter storyline.
 
 location = input("Enter the location you wish for the game to be set in. Please enter a city name: ")
 sleep(1)
 print(f"Your chosen location is, {location}")
-sleep(0.5)
+clear_terminal()
 
 print("This game is based in 2006.")
 sleep(0.5)
@@ -214,7 +222,7 @@ sleep(0.5)
 clear_terminal()
 # Storyline begins
 
-print(r"""╔──────────────────────────────────────────────────────────────────────────────╗
+fast_type(r"""╔──────────────────────────────────────────────────────────────────────────────╗
 │ _____ _            _   _       _   _ _   _          _                        │
 │|_   _| |__   ___  | | | |_ __ | |_(_) |_| | ___  __| |                       │
 │  | | | '_ \ / _ \ | | | | '_ \| __| | __| |/ _ \/ _` |                       │
@@ -275,7 +283,7 @@ elif answerone == "no":
 clear_terminal()
 
 typewriter("You walk over to the couch and switch on the TV.")
-print(r"""
+fast_type(r"""
 
 
                                    ▓                        ▓
@@ -355,7 +363,7 @@ elif answerthree == "no":
     typewriter("You stay put.")
 
 typewriter("*Thinking to yourself* Maybe its best I dont open the door. Whoever is out there seems really aggressive. "
-           "\nYou decide to walk upstairs and amke your way to bed."
+           "\nYou decide to walk upstairs and make your way to bed."
            "\nIt goes quiet"
            "\nSuddenly...")
 
@@ -399,12 +407,13 @@ typewriter("Alright so you goal is to reach to 20 metres deep under your cell...
            "\n Well... Not exactly your home"
            "\n That would be a dumb idea..."
            "\n To escape from prison and to go back to the first place where the police would search"
+           "\n You will also need to save up enough money to get out of this area and get a new place..."
            "\n Anyways lets continue with the storyline."
            "\n Okay. Lets start by breaking the tiles below this rug (why is there a rug in prison? idk gng js go with it fr)")
 
 print("*You break the tiles*")
 
-typewriter("Okay now grab the shovel under the bed (the prison guards are a bit dumb dw trust they wont see it")
+typewriter("Okay now grab the shovel under the bed (the prison guards are a bit dumb dw trust they wont see it)")
 
 print("*You grab the shovel*")
 
@@ -412,7 +421,7 @@ typewriter("Okay lets get digging.")
 sleep(1)
 dig()
 gameoptions()
-clear_terminal
+clear_terminal()
 typewriter("Alright so you made it to 20 metres"
  "\n Now you need to head north to the nearest sewer..."
  "\n *You head north*" 
@@ -420,12 +429,12 @@ typewriter("Alright so you made it to 20 metres"
  "\n *You walk to the nearest manhole cover*"
  "\n *You climb out of the sewer*")
 clear_terminal()
-typewriter(f"So you have around {player['Money(£)']} in a duffle bag"
+typewriter(f"So you have around £{player['Money(£)']} in a duffle bag"
            "\n You should call an uber and get out of here...")
 clear_terminal()
 typewriter("Thanks for playing the demo of the Untitled Text-Based Adventure Game!")
 clear_terminal() 
-print(r"""╔──────────────────────────────────────────────────────────────────────────────╗
+fast_type(r"""╔──────────────────────────────────────────────────────────────────────────────╗
 │ _____ _            _   _       _   _ _   _          _                        │
 │|_   _| |__   ___  | | | |_ __ | |_(_) |_| | ___  __| |                       │
 │  | | | '_ \ / _ \ | | | | '_ \| __| | __| |/ _ \/ _` |                       │
