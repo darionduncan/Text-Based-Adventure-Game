@@ -1,4 +1,3 @@
-
 #importing
 import random
 import time
@@ -8,8 +7,8 @@ import os
 
 #playerstats
 player = {
-    "Stamina": 50,
-    "Max Stamina": 50,
+    "Stamina": 20,
+    "Max Stamina": 20,
     "XP": 0,
     "Level": 1,
     "Shovel": 1,
@@ -68,7 +67,7 @@ def clear_terminal(): #clears terminal with a delay
 def clear(): # clears terminal instantly
     os.system('cls' if os.name == 'nt' else 'clear')
 
-def typewriter(text, delay=0.025):
+def typewriter(text, delay=0.04):
     for char in text:
         sys.stdout.write(char)
         sys.stdout.flush()
@@ -97,14 +96,14 @@ def dig():
             player["Shovel"] += 1
             player["XP Multiplier"] += 0.1
             player["XP"] -= player["XP Needed"]
-            player["XP Needed"] += 10
+            player["XP Needed"] += 20
             print(f"Congratulations! You've leveled up to Level {player['Level']}!")
             print(f"Max Stamina increased to {player['Max Stamina']}. Stamina fully restored.")
             print(f"Shovel level increased to {player['Shovel']}. XP Multiplier is now {player['XP Multiplier']:.1f}.")
             print(f"XP needed for next level: {player['XP Needed']}")
     elif player["Level"] >= 5 and player["XP"] >= player["XP Needed"]:
         print("You have reached the max level (Level 5)!")
-    dig_area = 0.5 * player["Shovel"]
+    dig_area = 0.25 * player["Shovel"]
     player["Depth (m)"] += dig_area
     print(f"You dig... (-5 stamina). Stamina: {player['Stamina']}. XP gained: {xpgained}. Depth (m): {player['Depth (m)']}.")
 
@@ -230,6 +229,7 @@ print(r"""╔──────────────────────�
 │ / ___ \ (_| |\ V /  __/ | | | |_| |_| | | |  __/ | |_| | (_| | | | | | |  __/│
 │/_/   \_\__,_| \_/ \___|_| |_|\__|\__,_|_|  \___|  \____|\__,_|_| |_| |_|\___|│
 ╚──────────────────────────────────────────────────────────────────────────────╝""")
+clear_terminal()
 typewriter("You arrive home from that dreadful 9 - 5, feeling, exhausted..... drained")
 
 # deciding whether to eat or not - does not affect storyline
@@ -238,23 +238,32 @@ typewriter("You make your way to the kitchen, and open the fridge"
            "\n You drink one."
            "\n You drink another....."
            "\n Next thing you know you have drank 6 or 7 beers..... "
-           "\n Now your drunk."
-           "\n You decide to go for a drive."
+           "\n Now your drunk.")
+
+clear_terminal()
+
+typewriter("You decide to go for a drive."
            "\n Personally I think that isn't a good idea but I am just the narrator so..."
            "\n You get in your car and start it."
            "\n You drive to the gas station to get some snacks..."
            "\n You have the 'bright' idea to stuff the snack down your trousers instead of buying them..."
            "\n The cashier spots you."
            "\n You run to the car and lock the door..."
-           "\n You drive as fast as you can to get away..."
-           "\n CRASH..."
+           "\n You drive as fast as you can to get away...")
+
+clear_terminal()
+
+typewriter("CRASH..."
            "\n You hit something..."
            "\n A parked car?!"
            "\n Really? Wow you must be drunk."
            "\n At least the car was a rental and you gave them a one use only debit card."
            "\n *Thinking to yourself* What do I do? Do I leave the car here? You know what screw it."
-           "\n You run the rest of the way home."
-           "\n You head back into the kitchen and put the snacks away in the cupboard."
+           "\n You run the rest of the way home.")
+
+clear_terminal()
+
+typewriter("You head back into the kitchen and put the snacks away in the cupboard."
            "\n You go in the fridge"
            "\nIn the fridge you find a slice of pizza")
 answerone = get_choice("Would you like to eat the pizza? (yes/no): ", ["yes", "no"])
@@ -315,12 +324,9 @@ print(r"""
                  ▒▒▒▓▓                                                        ▓▓▓▓
                  ▒▒▓                                                           ▓▒▓▓
                  ▒▓                                                              ▒▓
-
-
-
-
-
                                                                                                     """)
+
+clear_terminal()
 
 while True:
     answertwo = input("What channel would you like to watch? E4 or ITV?")
@@ -386,7 +392,7 @@ elif answerfive == "no":
     sys.exit("Game Over")
 clear_terminal()
 
-typewriter("Alright so you goal is to reach to 20 meters deep under your cell..."
+typewriter("Alright so you goal is to reach to 20 metres deep under your cell..."
            "\n After this you must head north to the nearest sewer..."
            "\n You then need to walk through the sewer until you reach the next manhole cover..."
            "\n After that all you need to do is make it back home from there..."
@@ -403,5 +409,34 @@ typewriter("Okay now grab the shovel under the bed (the prison guards are a bit 
 print("*You grab the shovel*")
 
 typewriter("Okay lets get digging.")
+sleep(1)
 dig()
 gameoptions()
+clear_terminal
+typewriter("Alright so you made it to 20 metres"
+ "\n Now you need to head north to the nearest sewer..."
+ "\n *You head north*" 
+ "\n *You reach the sewer*" 
+ "\n *You walk to the nearest manhole cover*"
+ "\n *You climb out of the sewer*")
+clear_terminal()
+typewriter(f"So you have around {player['Money(£)']} in a duffle bag"
+           "\n You should call an uber and get out of here...")
+clear_terminal()
+typewriter("Thanks for playing the demo of the Untitled Text-Based Adventure Game!")
+clear_terminal() 
+print(r"""╔──────────────────────────────────────────────────────────────────────────────╗
+│ _____ _            _   _       _   _ _   _          _                        │
+│|_   _| |__   ___  | | | |_ __ | |_(_) |_| | ___  __| |                       │
+│  | | | '_ \ / _ \ | | | | '_ \| __| | __| |/ _ \/ _` |                       │
+│  | | | | | |  __/ | |_| | | | | |_| | |_| |  __/ (_| |                       │
+│ _|_|_|_| |_|\___|  \___/|_| |_|\__|_|\__|_|\___|\__,_|                       │
+│|_   _|____  _| |_     | __ )  __ _ ___  ___  __| |                           │
+│  | |/ _ \ \/ / __|____|  _ \ / _` / __|/ _ \/ _` |                           │
+│  | |  __/>  <| ||_____| |_) | (_| \__ \  __/ (_| |                           │
+│  |_|\___/_/\_\__|    |____/ \__,_|___/\___|\__,_|  ____                      │
+│   / \   __| |_   _____ _ __ | |_ _   _ _ __ ___   / ___| __ _ _ __ ___   ___ │
+│  / _ \ / _` \ \ / / _ \ '_ \| __| | | | '__/ _ \ | |  _ / _` | '_ ` _ \ / _ \│
+│ / ___ \ (_| |\ V /  __/ | | | |_| |_| | | |  __/ | |_| | (_| | | | | | |  __/│
+│/_/   \_\__,_| \_/ \___|_| |_|\__|\__,_|_|  \___|  \____|\__,_|_| |_| |_|\___|│
+╚──────────────────────────────────────────────────────────────────────────────╝""")
